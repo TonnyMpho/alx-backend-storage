@@ -15,7 +15,7 @@ if __name__ == "__main__":
     print("Methods:")
 
     for method in methods:
-        print("\tmethod {}: {}".format(
+        print("     method {}: {}".format(
             method, nginx_col.count_documents({"method": method})))
 
     print("{} status check".format(
