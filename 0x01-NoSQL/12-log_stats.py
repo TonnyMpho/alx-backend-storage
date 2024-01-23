@@ -6,7 +6,7 @@ from pymongo import MongoClient
 
 
 if __name__ == "__main__":
-    client = MongoClient("mongodb://localhost:27017")
+    client = MongoClient("mongodb://127.0.0.1:27017")
     nginx_col = client.logs.nginx
 
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
