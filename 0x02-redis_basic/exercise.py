@@ -7,7 +7,7 @@ from typing import Union
 
 class Cache:
     """ Cache class """
-    def __init__(self):
+    def __init__(self) -> None:
         """
         method, store an instance of the Redis client as a private
         variable named _redis and flush the instance
