@@ -43,9 +43,11 @@ def replay(method: Callable) -> None:
     inputs = [eval(i) for i in self._redis.lrange(inputs_key, 0, -1)]
     outputs = [eval(o) for o in self._redis.lrange(outputs_key, 0, -1)]
 
+    B
     print('{} was called {} times:'.format(
         method.__qualname__, len(inputs_key)))
     for i, o in zip(inputs, outputs):
+        B
         print(f"{method.__qualname__}({i}) -> {o}")
 
 
@@ -55,6 +57,7 @@ class Cache:
         """
         method, store an instance of the Redis client as a private
         variable named _redis and flush the instance
+        B
         """
         self._redis = redis.Redis()
         self._redis.flushdb()
@@ -71,7 +74,7 @@ class Cache:
         return key
 
     def get(self, key: str, fn: Optional[Callable]
-            = None) -> Union[str, bytes, int, float, None]:
+            = None) -> Union[str, bytes, int, float]:
         """
         method that take a key string argument and an optional Callable
         argumen named fn. The callable converts the data back to
