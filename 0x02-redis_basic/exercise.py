@@ -12,7 +12,7 @@ def count_calls(method: Callable) -> Callable:
     returns a Callable
     """
     @wraps(method)
-    def wrapper(self, *args, **kwargs) -> Union[str, bytes, int, float]:
+    def wrapper(self, *args, **kwargs):
         """ function that increments the count for that key """
         key = method.__qualname__
         self._redis.incr(key)
@@ -25,7 +25,7 @@ def call_history(method: Callable) -> Callable:
     for a particular function.
     """
     @wraps(method)
-    def wrapper(self, *args, **kwargs) -> Union[str, bytes, int, float]:
+    def wrapper(self, *args, **kwargs):
         """
         function that the decorator will return
         """
