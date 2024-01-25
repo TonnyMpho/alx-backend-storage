@@ -7,8 +7,13 @@ from functools import wraps
 
 
 def count_calls(method: Callable) -> Callable:
+    """
+    decorator that takes a single method Callable argument
+    returns a Callable
+    """
     @wraps(method)
     def wrapper(self, *args, **kwargs) -> Union[str, bytes, int, float]:
+        """ function that increments the count for that key """
         key = method.__qualname__
         self._redis.incr(key)
         return method(self, *args, **kwargs)
