@@ -37,6 +37,17 @@ def call_history(method: Callable) -> Callable:
         return output
     return wrapper
 
+def replay(method: Callable) -> None:
+    inputs_key = method.__qualname__ + ":inputs"
+    outputs_key = method.__qualname__ + ":outputs"
+    inputs = [eval(i) for i in self._redis.lrange(inputs_key, 0, -1)]
+    outputs = [eval(o) for o in self._redis.lrange(outputs_key, 0, -1)]
+
+    print('{} was called {} times:'.format(
+        method.__qualname__, len(inputs_key)))
+    for i, o in zip(inputs, outputs):
+        print(f"{method.__qualname__}({i}) -> {o}")
+
 
 class Cache:
     """ Cache class """
@@ -83,17 +94,6 @@ class Cache:
         function
         """
         return self.get(key, fn=int)
-
-    def replay(method: Callable) -> None:
-        inputs_key = method.__qualname__ + ":inputs"
-        outputs_key = method.__qualname__ + ":outputs"
-        inputs = [eval(i) for i in self._redis.lrange(inputs_key, 0, -1)]
-        outputs = [eval(o) for o in self._redis.lrange(outputs_key, 0, -1)]
-
-        print('{} was called {} times:'.format(
-            method.__qualname__, len(inputs_key)))
-        for i, o in zip(inputs, outputs):
-            print(f"{method.__qualname__}({i}) -> {o}")
 
 
 cache = Cache()
